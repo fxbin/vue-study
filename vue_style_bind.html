@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Vue中的样式绑定</title>
+    <script src="vue.js"></script>
+    
+    <style>
+        .activated {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app1"> 
+        <!-- 对象绑定 -->
+        <div @click="handleDivClick"
+             :class="{activated: isActivated}"
+        >
+            Hello World 1
+        </div>
+    </div>
+
+    <div id="app2">
+        <!-- 数组绑定 -->
+        <div @click="handleDivClick"
+             :class="[activated, activatedOne]"
+        >
+            Hello World 2
+        </div>
+    </div>
+
+    
+    <div id="app3">
+        <!-- 内联 -->
+        <!-- <div @click="handleDivClick"
+             :style="styleObj">
+            Hello World 3
+        </div> -->
+
+        <div @click="handleDivClick"
+             :style="[styleObj, {fontSize: '20px'}]">
+            Hello World 3
+        </div>
+    </div>
+
+    <script>
+
+        // 对象类绑定
+        var vm1 = new Vue({
+            el: "#app1",  
+            data: {
+                isActivated: false
+            },
+            methods: {
+                handleDivClick: function() {
+                    this.isActivated = !this.isActivated;
+                }
+            }  
+        })
+
+        var vm2 = new Vue({
+            el: "#app2",  
+            data: {
+                activated: "",
+                activatedOne: "activated-one"
+            },
+            methods: {
+                handleDivClick: function() {
+                    this.activated = this.activated === "activated" ? "" : "activated";
+                }
+            }  
+        })
+
+        var vm3 = new Vue({
+            el: "#app3",
+            data: {
+                styleObj: {
+                    color: "black"
+                }
+            },
+            methods: {
+                handleDivClick: function() {
+                    this.styleObj.color = this.styleObj.color === "black" ? "red" : "black";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
